@@ -1,0 +1,3 @@
+- Clone project 
+- Create new folder "chromedriver_win32" in the folder of project, for example C:\Users\user_name\IdeaProjects\GoogleTestProject\
+- Copy driver of Chrome browser: chromedriver.exe in this folder
