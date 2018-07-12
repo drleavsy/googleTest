@@ -1,11 +1,11 @@
 package Pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
 import settings.BasePage;
 
 import static junit.framework.TestCase.assertEquals;
@@ -13,11 +13,11 @@ import static junit.framework.TestCase.assertTrue;
 
 public class HomePage extends BasePage {
 
-    @FindBy(how = How.CLASS_NAME, using = "input[name='btnK']")
+    @FindBy(how = How.CSS, using = "input[name='btnK']")
     @CacheLookup
     private WebElement button_search;
 
-    @FindBy(how = How.CLASS_NAME, using = "input.gsfi")
+    @FindBy(how = How.CSS, using = "input.gsfi")
     @CacheLookup
     private WebElement searchInputField;
 
@@ -27,20 +27,24 @@ public class HomePage extends BasePage {
 
     public void enterTextToSearchField(String inputString){
         //Enter text to search field
-        searchInputField.click();
-        searchInputField.sendKeys(inputString);
+        clickElement(searchInputField);
+        writeText(searchInputField, inputString);
     }
 
     public void clickOnSearch(){
         //Click on Search button
-        button_search.click();
+        clickElement(button_search);
+    }
+
+    public void clickEnter() {
+        searchInputField.sendKeys(Keys.RETURN);
     }
 
     public boolean isHomePageOpened() {
-        String currentURL = getDriver().getCurrentUrl();
+        String currentURL = driver.getCurrentUrl();
         // verify that the webpage was opened by testing URL and title
         assertEquals(currentURL, "https://www.google.com/");
-        assertTrue(getDriver().getTitle().contains("Google"));
+        assertTrue(isWordPresentInTitle("google"));
         return true;
     }
 
