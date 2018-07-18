@@ -8,9 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import settings.BasePage;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
-
 public class HomePage extends BasePage {
 
     @FindBy(how = How.CSS, using = "input[name='btnK']")
@@ -26,26 +23,11 @@ public class HomePage extends BasePage {
     }
 
     public void enterTextToSearchField(String inputString){
-        //Enter text to search field
+        // Click on the search field
         clickElement(searchInputField);
+        // Send keyboard keys to search field
         writeText(searchInputField, inputString);
-    }
-
-    public void clickOnSearch(){
-        //Click on Search button
-        clickElement(button_search);
-    }
-
-    public void clickEnter() {
+        // Press Enter which presses the 'Search' button
         searchInputField.sendKeys(Keys.RETURN);
     }
-
-    public boolean isHomePageOpened() {
-        String currentURL = driver.getCurrentUrl();
-        // verify that the webpage was opened by testing URL and title
-        assertEquals(currentURL, "https://www.google.com/");
-        assertTrue(isWordPresentInTitle("google"));
-        return true;
-    }
-
 }

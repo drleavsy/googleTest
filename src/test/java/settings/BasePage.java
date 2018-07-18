@@ -6,25 +6,21 @@ import org.openqa.selenium.WebElement;
 public class BasePage {
 
     protected WebDriver driver;
-    //Constructor
+    // Constructor
     public BasePage (WebDriver driver){
         this.driver = driver;
     }
 
-    protected WebDriver getDriver() {
-        return this.driver;
-    }
-
-    //Click Method
+    // Click webelement
     protected void clickElement (WebElement element) {
         element.click();
     }
 
-    //Write Text
+    // Write Text to webelement
     protected void writeText (WebElement element, String text) {
         element.sendKeys(text);
     }
-
+    // Get title text from webpage and compare with input string
     public boolean isWordPresentInTitle(String word){
         return driver.getTitle().toLowerCase().contains(word);
     }

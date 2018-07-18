@@ -3,62 +3,59 @@ package Pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import settings.BasePage;
-import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
+import java.util.List;
 
 public class SearchResultPage extends BasePage {
 
-    protected WebElement firstLinkElement;
-    protected WebElement nextPageLinkElement;
+    @FindBy(how = How.CSS, using = "div#foot a[class='pn'][id=\"pnnext\"]")
+    @CacheLookup
+    private WebElement nextPageLink;
 
-    private String linksLoc = "h3 > a";
-    private String allCiteLinks = "div.g div.s cite";
-    private String nextPageLink = "div#foot a.pn";
-    private String currPage = "table#nav td.cur";
+    @FindBy(how = How.CSS, using = "div.g div.rc h3 > a")
+    @CacheLookup
+    private WebElement firstLinkLoc;
+
+
     public SearchResultPage(WebDriver driver){
         super(driver);
     }
 
-    public boolean verifyWordIsPresentOnPage(String word)
+    public int verifyWordIsPresentInResultPage(String word)
     {
-        // get all web elements of the http links on the result page
-        List<WebElement> listOfElements = new WebDriverWait(driver, 10).until(
-                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(allCiteLinks)));
-        // get all web elements of page numbers
-        WebElement currPageElem = new WebDriverWait(driver, 10).until(
-                ExpectedConditions.visibilityOfElementLocated(By.cssSelector(currPage)));
+        // count http links which contains the word "automation"
+        int countMatches = 0;
 
-        boolean result;
-        // go through each link and verify if it contains the 'automation' word, if yes then print it out
-        System.out.println("Current page" + currPageElem.getText());
+        List<WebElement> listOfElementsLinks = new WebDriverWait(driver, 10).until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("div[class=\"med\"][id=\"res\"] cite")));
 
-        for (WebElement elem: listOfElements) {
-            result = elem.getText().toLowerCase().contains(word);
-            if(result){
-                System.out.println(elem.getText());
-            }
-            else{
-                return false;
+        for (WebElement elem : listOfElementsLinks) {
+            if (elem.getText().toLowerCase().contains(word)) {
+                // increase match counter if word "automation" was found in domain name
+                countMatches++;
             }
         }
-        return true;
+        return countMatches;
     }
 
     public void clickOnFirstLink(){
         //Click on 1st link
-        firstLinkElement =  new WebDriverWait(driver, 10).until(
-                ExpectedConditions.elementToBeClickable(By.cssSelector(linksLoc)));
+        WebElement firstLinkElement =  new WebDriverWait(driver, 10).until(
+                ExpectedConditions.elementToBeClickable(firstLinkLoc));
         clickElement(firstLinkElement);
+        // wait until the new page is loaded after clicking 1st link
+        WebElement element = new WebDriverWait(driver, 10).until(
+                ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body div")));
     }
 
     public void clickNextPageLink(){
         //Click on next link
-        nextPageLinkElement =  new WebDriverWait(driver, 10).until(
-                ExpectedConditions.elementToBeClickable(By.cssSelector(nextPageLink)));
+        WebElement nextPageLinkElement =  new WebDriverWait(driver, 10).until(
+                ExpectedConditions.elementToBeClickable(nextPageLink));
         clickElement(nextPageLinkElement);
     }
 }

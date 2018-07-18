@@ -4,12 +4,10 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BaseTest {
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
 
     @Before
     public void testSetUp(){
@@ -20,9 +18,6 @@ public class BaseTest {
         options.addArguments("--start-maximized", "--disable-cache");
         // Create instance of chrome driver with defined options
         driver = new ChromeDriver(options);
-
-        //All test and page classes will use this wait by default
-        wait = new WebDriverWait(driver,10);
 
         driver.navigate().to("https://www.google.com/");
     }
