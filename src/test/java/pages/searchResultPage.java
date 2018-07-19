@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,11 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import settings.BasePage;
+import settings.basePage;
 
 import java.util.List;
 
-public class SearchResultPage extends BasePage {
+public class searchResultPage extends basePage {
 
     @FindBy(how = How.CSS, using = "div#foot a[class='pn'][id=\"pnnext\"]")
     @CacheLookup
@@ -21,7 +21,7 @@ public class SearchResultPage extends BasePage {
     private WebElement firstLinkLoc;
 
 
-    public SearchResultPage(WebDriver driver){
+    public searchResultPage(WebDriver driver){
         super(driver);
     }
 
@@ -48,7 +48,7 @@ public class SearchResultPage extends BasePage {
                 ExpectedConditions.elementToBeClickable(firstLinkLoc));
         clickElement(firstLinkElement);
         // wait until the new page is loaded after clicking 1st link
-        WebElement element = new WebDriverWait(driver, 10).until(
+        new WebDriverWait(driver, 10).until(
                 ExpectedConditions.visibilityOfElementLocated(By.cssSelector("body div")));
     }
 

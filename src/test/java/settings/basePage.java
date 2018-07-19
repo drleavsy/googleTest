@@ -3,11 +3,11 @@ package settings;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class BasePage {
+public class basePage {
 
     protected WebDriver driver;
     // Constructor
-    public BasePage (WebDriver driver){
+    public basePage(WebDriver driver){
         this.driver = driver;
     }
 

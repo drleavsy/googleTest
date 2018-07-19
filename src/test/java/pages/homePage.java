@@ -1,4 +1,4 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import settings.BasePage;
+import settings.basePage;
 
-public class HomePage extends BasePage {
+public class homePage extends basePage {
 
     @FindBy(how = How.CSS, using = "input[name='btnK']")
     @CacheLookup
@@ -18,7 +18,7 @@ public class HomePage extends BasePage {
     @CacheLookup
     private WebElement searchInputField;
 
-    public HomePage(WebDriver driver){
+    public homePage(WebDriver driver){
         super(driver);
     }
 
